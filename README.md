@@ -2,6 +2,37 @@
 
 버전 1.0.0. Codex에서 노래의 방향을 한국어로 함께 정하고 yue2.cpp용 영어 스타일과 가사를 작성하는 스킬입니다. yue2.cpp 공식 배포물이 아닌 별도 대화형 작업 지침입니다.
 
+## 사용에 필요한 구성요소
+
+**이 스킬만 설치해서는 음악이 생성되지 않습니다.** 이 저장소의 음악 생성 절차를 사용하려면 **YuE2 모델과 이를 실행하는 yue2.cpp**가 별도로 필요합니다. YuE2와 yue2.cpp를 서로 독립된 음악 앱 두 개로 설치하는 뜻은 아닙니다. yue2.cpp가 YuE2 모델 파일을 불러와 실행합니다.
+
+| 구성요소 | 역할 | 안내 및 다운로드 |
+| --- | --- | --- |
+| 이 Codex 스킬 | 질문을 통해 곡을 구체화하고 스타일·가사를 작성 | [스킬 본문](yue2-prompt/SKILL.md) |
+| YuE2-3B | 음악을 생성하는 기반 모델 | [MAP 공식 모델과 설명](https://huggingface.co/m-a-p/YuE2-3B) |
+| YuE2-Vae | 모델의 합성 결과를 실제 오디오로 변환 | [MAP 공식 VAE 모델](https://huggingface.co/m-a-p/YuE2-Vae) |
+| yue2.cpp | 모델을 로컬에서 실행하고 웹 입력 화면·생성 API 제공 | [프로젝트 및 설치 안내](https://github.com/ServeurpersoCom/yue2.cpp#readme) |
+| YuE2 GGUF 파일 | yue2.cpp에서 불러오는 모델 형식 | [yue2.cpp 배포자의 모델 안내](https://huggingface.co/Serveurperso/YuE2-GGUF) · [파일 목록](https://huggingface.co/Serveurperso/YuE2-GGUF/tree/main) |
+| Codex와 브라우저 제어 도구 | 스킬 실행 및 화면 자동 입력·조작 | 사용 중인 Codex 환경에서 스킬과 브라우저 제어 기능을 준비 |
+
+```text
+사용자의 노래 설명
+  → Codex + 이 스킬: 질문 / 영어 스타일 / 선택한 언어의 가사
+  → yue2.cpp: 입력을 받아 YuE2 모델 실행
+  → YuE2 기반 모델 + VAE: 음악 합성
+  → MP3 또는 WAV 저장
+```
+
+### 준비 순서
+
+1. [yue2.cpp README](https://github.com/ServeurpersoCom/yue2.cpp#readme)에서 자신의 운영체제와 하드웨어에 맞는 빌드·실행 방법을 확인합니다.
+2. [GGUF 모델 파일 목록](https://huggingface.co/Serveurperso/YuE2-GGUF/tree/main)에서 기반 모델과 VAE를 각각 준비합니다. 프로젝트 안내의 기본 조합은 `YuE2-3B-Q8_0.gguf`와 `YuE2-Vae-F32.gguf`입니다. 기본 새 곡 생성에는 선택적 전사 모델이 필요하지 않습니다.
+3. yue2.cpp를 실행하고 웹 화면이 열리는지 확인합니다. 기본 포트를 그대로 사용했다면 같은 컴퓨터에서 `http://127.0.0.1:8087`로 접속할 수 있습니다. 포트는 실제 설치 설정을 따릅니다.
+4. 아래 안내에 따라 이 스킬을 설치하고 노래 제작을 요청합니다. 이 구성에서는 별도로 YuE2의 Python 추론 패키지를 중복 설치할 필요가 없습니다.
+5. 브라우저 제어 기능이 없다면 스킬이 작성한 `Style`과 `Lyrics`를 yue2.cpp의 각 입력란에 직접 붙여 넣어 사용할 수도 있습니다.
+
+모델·메모리 요구량과 실행 방법은 원 프로젝트에서 업데이트될 수 있으므로 연결된 안내를 기준으로 확인하세요. 위 링크는 2026-09-24에 확인했습니다.
+
 ## 특징
 - 제목부터 한 번에 한 항목씩 번호로 질문합니다.
 - 0번은 해당 항목을 맡기는 선택입니다. 전체 위임과 구분합니다.
