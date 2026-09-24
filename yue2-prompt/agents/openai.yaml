@@ -1,0 +1,4 @@
+interface:
+  display_name: "yue2.cpp 프롬프트"
+  short_description: "노래 설명을 구체화하고 스타일과 가사를 작성해 yue2.cpp에 자동 입력"
+  default_prompt: "$yue2-prompt 내가 설명하는 노래를 yue2.cpp 입력용으로 작성해줘. 세부 사항은 한 번에 하나씩 번호 선택으로 묻고 0번은 해당 항목을 맡기는 선택으로 제공하되 내가 알아서 하라고 하면 남은 선택은 맡아서 하고, 완성되면 스타일과 가사를 각 입력란에 자동으로 입력해줘."
